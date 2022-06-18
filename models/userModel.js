@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: TransformStreamDefaultController,
+    required: true,
     validate: (password) => /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password),
   },
   userType: {
@@ -51,7 +51,6 @@ userSchema.pre('save', function hashPassword(next) {
 userSchema.methods.validatePassword = function validatePassword(password) {
   console.log(password, this.password);
   return bcrypt.compareSync(password, this.password)
-
 }
 
 export default mongoose.model('User', userSchema)
