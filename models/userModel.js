@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import bcrypt from 'bcrypt'
 import mongooseHidden from 'mongoose-hidden'
+import bcrypt from 'bcrypt'
 import validator from 'validator'
 
 const userSchema = new mongoose.Schema({
