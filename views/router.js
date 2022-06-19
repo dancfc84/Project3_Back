@@ -31,4 +31,4 @@ router.route("/posts/")
   
 // router.route("/posts/:postID/comment")
 //   .post(authenticate, commentController.createComment)
-// export default router
+export default router
