@@ -19,7 +19,7 @@ const postSchema = new mongoose.Schema({
   userComments: [commentSchema],
 })
 
-hotelsSchema.index({ '$**': 'text' }, { autoIndex: false });
+postSchema.index({ '$**': 'text' }, { autoIndex: false });
 
 
-export default mongoose.model('Hotels', hotelsSchema)
+export default mongoose.model('Hotels', postSchema)
