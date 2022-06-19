@@ -1,7 +1,7 @@
 import PostModel from "../models/postModel.js"
 
 async function getPosts(req, res) {
-  const allPosts = await PostModel.find()
+  const allPosts = await PostModel.find().sort({ createdAt: -1 }) //sorts all posts before sending them back ... newest on top
   res.status(200).json(allPosts)
   // console.log(req);
 }

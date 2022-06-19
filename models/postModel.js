@@ -7,7 +7,6 @@ const commentSchema = new mongoose.Schema({
 }, { timestamps: { createdAt: true, updatedAt: true } })
 
 const postSchema = new mongoose.Schema({
-
   postContent: { type: String, minLength: 0, maxLength: 1000, required: false },
   tags: { type: [String], required: false },
   user: { type: mongoose.Schema.ObjectId, ref: "User", required: false },
