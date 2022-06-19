@@ -1,17 +1,18 @@
 // // ? Applications routes will live in here.
 
 // // ? Applications routes will live in here.
-// import express from "express"
-// import controller from "../controllers/controller.js"
+import express from "express"
+import postController from "../controllers/postController.js"
 // import userController from "../controllers/controllerUser.js"
 // import authenticate from "../middleware/authenticate.js"
 // import commentController from "../controllers/commentController.js"
 
-// const router = express.Router()
+const router = express.Router()
 
-// router.route("/posts/")
-//   .get(controller.getHotels)
-//   .post(authenticate, controller.createHotel)
+router.route("/posts/")
+  .get(postController.getPosts)
+  .post(postController.createPost)
+  // (authenticate, //createPost 
 
 // router.route("/posts/:postID")
 //   .get(controller.getHotelByID)
