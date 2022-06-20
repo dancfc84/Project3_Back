@@ -10,4 +10,4 @@ export const dbURL = environment === 'test'
   : `${mongoURL}hackertrees`
 //secret for jwt
 
-export const secret = "growtreesnochopchop"
+export const secret = "growTreesNoChopChopGottaSustain"
