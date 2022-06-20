@@ -2,6 +2,7 @@
 // // ? Applications routes will live in here.
 import express from "express"
 import postController from "../controllers/postController.js"
+import jobController from "../controllers/jobController.js"
 // import userController from "../controllers/controllerUser.js"
 // import authenticate from "../middleware/authenticate.js"
 // import commentController from "../controllers/commentController.js"
@@ -22,6 +23,10 @@ router.route("/posts/:postID")
 // router.route("/posts/search/:searchQuery")
 //   .get(controller.getHotelbySearch)
 
+router.route("/jobs/")
+  .get(jobController.getJobs)
+  .post(jobController.createJob)
+
 // router.route("/register")
 //   .post(userController.register)
 
@@ -31,4 +36,5 @@ router.route("/posts/:postID")
   
 // router.route("/posts/:postID/comment")
 //   .post(authenticate, commentController.createComment)
+
 export default router
