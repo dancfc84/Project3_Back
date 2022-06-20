@@ -28,7 +28,7 @@ async function serverStart() {
 
     await connectToDB()
 
-    app.listen( 4000, () => console.log('Is this up and running?'))
+    app.listen(4000, () => console.log('Express up and running?'))
 
   } catch (e) {
 
