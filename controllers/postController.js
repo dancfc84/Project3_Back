@@ -14,13 +14,13 @@ async function createPost(req, res) {
   try {
 
 
-  const newPostToAdd = req.body
-  // newPostToAdd.user = req.currentUser
-  const createPost = await PostModel.create(newPostToAdd)
-  res.status(201).json(createPost)
-} catch (e) {
-  res.status(422).json({ Message: "Error: Post missing or invalid fields."})
-}
+    const newPostToAdd = req.body
+    // newPostToAdd.user = req.currentUser
+    const createPost = await PostModel.create(newPostToAdd)
+    res.status(201).json(createPost)
+  } catch (e) {
+    res.status(422).json({ Message: "Error: Post missing or invalid fields." })
+  }
 }
 
 async function getPostByID(req, res) {
@@ -43,19 +43,24 @@ async function removePost(req, res) {
 
     // if (!postToBeDeleted.user.equals(user._id)) {
     //   return res.json({ message: 'Unauthorized' })
-    }
+    // }
     if (!postToBeDeleted) return res.json({ message: "This post cannot be found" })
 
+    await PostModel.findByIdAndDelete(postID)
+    res.sendStatus(204)
+  } catch (e) {
+    res.status(422).json({ message: "This Post ID is in an invalid format." })
 
   }
-
 }
+
+// updatePostById,
+// getPostbySearch,
+
 export default {
   getPosts,
   createPost,
   getPostByID,
-  // updateHotelbyID,
-  // deleteHotelbyID,
-  // getHotelbySearch,
+  removePost,
 }
 
