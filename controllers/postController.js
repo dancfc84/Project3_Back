@@ -28,7 +28,6 @@ async function getPostByID(req, res) {
     const postID = req.params.postID
     const post = await PostModel.findById(postID)
     if (!post) return res.json({ Message: "Error: This post in unavailable." })
-
     res.json(post)
   } catch (e) {
     res.json({ Message: 'Error: This post is unavailable.' })
@@ -47,10 +46,10 @@ async function removePost(req, res) {
     if (!postToBeDeleted) return res.json({ message: "This post cannot be found" })
 
     await PostModel.findByIdAndDelete(postID)
-    res.sendStatus(204)
+    res.status(204)
+
   } catch (e) {
     res.status(422).json({ message: "This Post ID is in an invalid format." })
-
   }
 }
 

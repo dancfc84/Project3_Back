@@ -1,5 +1,4 @@
 // // ? Applications routes will live in here.
-
 // // ? Applications routes will live in here.
 import express from "express"
 import postController from "../controllers/postController.js"
@@ -16,8 +15,9 @@ router.route("/posts/")
 
 router.route("/posts/:postID")
   .get(postController.getPostByID)
+  .delete(postController.removePost)
 //   .put(authenticate, controller.updateHotelbyID)
-//   .delete(authenticate, controller.deleteHotelbyID)
+
 
 // router.route("/posts/search/:searchQuery")
 //   .get(controller.getHotelbySearch)
