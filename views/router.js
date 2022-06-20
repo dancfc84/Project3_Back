@@ -14,8 +14,8 @@ router.route("/posts/")
   .post(postController.createPost)
   // (authenticate, //createPost 
 
-// router.route("/posts/:postID")
-//   .get(controller.getHotelByID)
+router.route("/posts/:postID")
+  .get(postController.getPostByID)
 //   .put(authenticate, controller.updateHotelbyID)
 //   .delete(authenticate, controller.deleteHotelbyID)
 
