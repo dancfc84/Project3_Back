@@ -13,6 +13,7 @@ import mongoSanitize from 'express-mongo-sanitize'
 const app = express()
 
 async function serverStart() {
+  
   try {
 
     app.use(express.json())
@@ -27,7 +28,7 @@ async function serverStart() {
 
     await connectToDB()
 
-    app.listen(4000, () => console.log('Is this up and running?'))
+    app.listen( 4000, () => console.log('Is this up and running?'))
 
   } catch (e) {
 
