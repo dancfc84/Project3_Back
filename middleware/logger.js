@@ -1,4 +1,4 @@
-// ? Logging functionality will live in here.
+//? Logging functionality will live in here.
 
 function buildObjectLog(obj) {
   if (!Object.keys(obj).length) return 'None'
