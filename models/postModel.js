@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 const commentSchema = new mongoose.Schema({
   content: { type: String, required: true },
-  user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  user: { type: mongoose.Schema.ObjectId, ref: 'User', required: false },
 }, { timestamps: { createdAt: true, updatedAt: true } })
 
 const postSchema = new mongoose.Schema({
@@ -11,6 +11,8 @@ const postSchema = new mongoose.Schema({
   tags: { type: [String], required: false },
   user: { type: mongoose.Schema.ObjectId, ref: "User", required: false },
   userComments: [commentSchema],
+  upvotedBy: { type: [String], required: false },
+  downvotedBy: { type: [String], required: false },
 }, { timestamps: { createdAt: true, updatedAt: true } }
 )
 

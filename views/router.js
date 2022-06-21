@@ -5,7 +5,7 @@ import postController from "../controllers/postController.js"
 import jobController from "../controllers/jobController.js"
 // import userController from "../controllers/controllerUser.js"
 // import authenticate from "../middleware/authenticate.js"
-// import commentController from "../controllers/commentController.js"
+import commentController from "../controllers/commentController.js"
 
 const router = express.Router()
 
@@ -19,6 +19,9 @@ router.route("/posts/:postID")
   .delete(postController.removePost)
 //   .put(authenticate, controller.updateHotelbyID)
 
+router.route("/posts/:postID/comment")
+  .post(commentController.commentOnPost)
+
 
 // router.route("/posts/search/:searchQuery")
 //   .get(controller.getHotelbySearch)
@@ -26,6 +29,10 @@ router.route("/posts/:postID")
 router.route("/jobs/")
   .get(jobController.getJobs)
   .post(jobController.createJob)
+
+router.route("/jobs/:jobId")
+  .get(jobController.showJob)
+
 
 // router.route("/register")
 //   .post(userController.register)
