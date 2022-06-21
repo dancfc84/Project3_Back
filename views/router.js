@@ -3,7 +3,7 @@
 import express from "express"
 import postController from "../controllers/postController.js"
 import jobController from "../controllers/jobController.js"
-// import userController from "../controllers/controllerUser.js"
+import userController from "controllers/userController.js"
 // import authenticate from "../middleware/authenticate.js"
 import commentController from "../controllers/commentController.js"
 
