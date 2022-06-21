@@ -30,6 +30,12 @@ router.route("/jobs/")
   .get(jobController.getJobs)
   .post(jobController.createJob)
 
+router.route("/jobs/edit/:jobId")
+  .put(jobController.editJob)
+
+router.route("/jobs/create")
+  .post(jobController.createJob)
+
 router.route("/jobs/:jobId")
   .get(jobController.showJob)
 

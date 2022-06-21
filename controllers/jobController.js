@@ -33,8 +33,24 @@ async function showJob (req, res) {
   }
 }
 
+async function editJob (req, res) {
+
+  console.log(`This is the request body${req.body}`);
+
+  if (typeof req.body.jobSalary === 'string') {
+    req.body.jobSalary = Number(req.body.jobSalary)
+  }
+  try {
+    const jobId = req.params.jobId
+    const job = await Job.findByIdAndUpdate(jobId, { ...req.body })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default {
   createJob,
   getJobs,
   showJob,
+  editJob,
 }
