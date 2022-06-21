@@ -3,7 +3,7 @@
 import express from "express"
 import postController from "../controllers/postController.js"
 import jobController from "../controllers/jobController.js"
-import userController from "controllers/userController.js"
+import userController from "../controllers/userController.js"
 // import authenticate from "../middleware/authenticate.js"
 import commentController from "../controllers/commentController.js"
 
@@ -40,8 +40,8 @@ router.route("/jobs/:jobId")
   .get(jobController.showJob)
 
 
-// router.route("/register")
-//   .post(userController.register)
+router.route("/register")
+  .post(userController.register)
 
 router.route("/login")
   .post(userController.login)
