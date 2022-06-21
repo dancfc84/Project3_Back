@@ -5,7 +5,7 @@ import postController from "../controllers/postController.js"
 import jobController from "../controllers/jobController.js"
 // import userController from "../controllers/controllerUser.js"
 // import authenticate from "../middleware/authenticate.js"
-// import commentController from "../controllers/commentController.js"
+import commentController from "../controllers/commentController.js"
 
 const router = express.Router()
 
@@ -18,6 +18,9 @@ router.route("/posts/:postID")
   .get(postController.getPostByID)
   .delete(postController.removePost)
 //   .put(authenticate, controller.updateHotelbyID)
+
+router.route("/posts/:postID/comment")
+  .post(commentController.commentOnPost)
 
 
 // router.route("/posts/search/:searchQuery")
