@@ -1,12 +1,15 @@
 import mongoose from 'mongoose'
 import mongooseHidden from 'mongoose-hidden'
-import bcrypt from 'bcrypt'
+import uniqueValidator from 'mongoose-unique-validator'
 import validator from 'validator'
+import bcrypt from 'bcrypt'
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: false },
   email: {
-    type: String, required: true,
+    type: String, 
+    required: true,
+    unique: true,
     validate: (email) => validator.isEmail(email),
   },
   password: {
@@ -41,6 +44,7 @@ const userSchema = new mongoose.Schema({
   yearsExp: { type: Number, required: false },
 
 })
+
 userSchema.plugin(mongooseHidden({ defaultHidden: { password: true, email: true, _id: false } }))
 
 userSchema.pre('save', function hashPassword(next) {

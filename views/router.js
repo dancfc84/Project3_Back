@@ -43,8 +43,8 @@ router.route("/jobs/:jobId")
 // router.route("/register")
 //   .post(userController.register)
 
-// router.route("/login")
-//   .post(userController.login)
+router.route("/login")
+  .post(userController.login)
   
   
 // router.route("/posts/:postID/comment")
