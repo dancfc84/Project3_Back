@@ -55,6 +55,15 @@ async function removePost(req, res) {
   }
 }
 
+async function editPost(req, res) {
+  try {
+    const postID = req.params.postID
+    const post = await PostModel.findByIdAndUpdate(postID, { ...req.body })
+    res.status(200).json({ message: 'Update successful.' })
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 
 // updatePostById,
@@ -65,5 +74,6 @@ export default {
   createPost,
   getPostByID,
   removePost,
+  editPost,
 }
 

@@ -1,6 +1,8 @@
 // ! Controller just for comments.
 import PostModel from '../models/postModel.js'
 import UserModel from '../models/userModel.js'
+import commentSchema from '../models/postModel.js'
+
 
 async function commentOnPost(req, res) {
   try {
@@ -30,6 +32,32 @@ async function commentOnPost(req, res) {
     console.log(e)
     res.json({ message: "There was a problem posting this comment." })
   }
+
+  // async function removeComment(req, res) {
+  //   try {
+  //     const postID = req.params.postID
+  //     const commentID = req.params.commentID
+
+  //     // const user = req.currentUser
+  //     const postToHaveComment = await PostModel.findById(postID)
+
+
+  //     // if (!postToBeDeleted.user.equals(user._id)) {
+  //     //   return res.json({ message: 'Unauthorized' })
+  //     // }
+  //     if (!postToBeDeleted) return res.json({ message: "This post cannot be found" })
+
+  //     const deletePost = await PostModel.findByIdAndDelete(postID)
+  //     if (!deletePost) return res.json({ message: "The requested post does not exist and therefore cannot be deleted." })
+
+  //     res.status(204).json({ message: 'Delete successful.' })
+
+  //   } catch (e) {
+  //     res.status(422).json({ message: "This Post ID is in an invalid format." })
+  //   }
+  // }
+
+
 }
 
 export default {

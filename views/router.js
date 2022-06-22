@@ -17,7 +17,7 @@ router.route("/posts/")
 router.route("/posts/:postID")
   .get(postController.getPostByID)
   .delete(postController.removePost)
-// .put(postController.updatePost)
+  .put(postController.editPost)
 //   .put(authenticate, controller.updateHotelbyID)
 
 router.route("/posts/:postID/comment")
@@ -46,7 +46,7 @@ router.route("/jobs/create")
 
 
 
-  
+
 router.route("/register")
   .post(userController.register)
 
