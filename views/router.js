@@ -34,16 +34,19 @@ router.route("/jobs/")
   .get(jobController.getJobs)
   .post(jobController.createJob)
 
+router.route("/jobs/:jobId")
+  .get(jobController.showJob)
+  .delete(jobController.deleteJob)
+
 router.route("/jobs/edit/:jobId")
   .put(jobController.editJob)
 
 router.route("/jobs/create")
   .post(jobController.createJob)
 
-router.route("/jobs/:jobId")
-  .get(jobController.showJob)
 
 
+  
 router.route("/register")
   .post(userController.register)
 

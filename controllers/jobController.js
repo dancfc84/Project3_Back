@@ -48,9 +48,23 @@ async function editJob (req, res) {
   }
 }
 
+async function deleteJob (res, req) {
+  try {
+    console.log("I made it to the job controller");
+    const jobId = req.params.jobId
+    const deletedJob = await Job.findByIdAndDelete(jobId)
+    res.json(deletedJob)
+    
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
 export default {
   createJob,
   getJobs,
   showJob,
   editJob,
+  deleteJob,
 }
