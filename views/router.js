@@ -12,16 +12,20 @@ const router = express.Router()
 router.route("/posts/")
   .get(postController.getPosts)
   .post(postController.createPost)
-  // (authenticate, //createPost 
+// (authenticate, //createPost 
 
 router.route("/posts/:postID")
   .get(postController.getPostByID)
   .delete(postController.removePost)
+// .put(postController.updatePost)
 //   .put(authenticate, controller.updateHotelbyID)
 
 router.route("/posts/:postID/comment")
   .post(commentController.commentOnPost)
 
+router.route("/posts/:postID/comment/:commentID")
+//   .put(authenticate, commentController.updateComment)
+// .delete(commentController.removeComment)
 
 // router.route("/posts/search/:searchQuery")
 //   .get(controller.getHotelbySearch)
@@ -45,8 +49,8 @@ router.route("/register")
 
 router.route("/login")
   .post(userController.login)
-  
-  
+
+
 // router.route("/posts/:postID/comment")
 //   .post(authenticate, commentController.createComment)
 

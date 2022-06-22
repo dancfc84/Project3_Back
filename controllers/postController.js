@@ -45,8 +45,10 @@ async function removePost(req, res) {
     // }
     if (!postToBeDeleted) return res.json({ message: "This post cannot be found" })
 
-    await PostModel.findByIdAndDelete(postID)
-    res.status(204)
+    const deletePost = await PostModel.findByIdAndDelete(postID)
+    if (!deletePost) return res.json({ message: "The requested post does not exist and therefore cannot be deleted." })
+
+    res.status(204).json({ message: 'Delete successful.' })
 
   } catch (e) {
     res.status(422).json({ message: "This Post ID is in an invalid format." })
