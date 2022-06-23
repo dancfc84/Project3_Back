@@ -48,7 +48,7 @@ async function editJob (req, res) {
   }
 }
 
-async function deleteJob (res, req) {
+async function deleteJob (req, res) {
   try {
     console.log("I made it to the job controller");
     const jobId = req.params.jobId

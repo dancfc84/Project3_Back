@@ -44,7 +44,8 @@ router.route("/jobs/edit/:jobId")
 router.route("/jobs/create")
   .post(jobController.createJob)
 
-
+router.route("/jobs/:jobId/comment")
+  .post(commentController.commentOnJob)
 
 
 router.route("/register")

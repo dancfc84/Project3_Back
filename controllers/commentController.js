@@ -1,5 +1,6 @@
 // ! Controller just for comments.
 import PostModel from '../models/postModel.js'
+import JobModel from '../models/jobModel.js'
 import UserModel from '../models/userModel.js'
 import commentSchema from '../models/postModel.js'
 
@@ -32,34 +33,63 @@ async function commentOnPost(req, res) {
     console.log(e)
     res.json({ message: "There was a problem posting this comment." })
   }
-
-  // async function removeComment(req, res) {
-  //   try {
-  //     const postID = req.params.postID
-  //     const commentID = req.params.commentID
-
-  //     // const user = req.currentUser
-  //     const postToHaveComment = await PostModel.findById(postID)
-
-
-  //     // if (!postToBeDeleted.user.equals(user._id)) {
-  //     //   return res.json({ message: 'Unauthorized' })
-  //     // }
-  //     if (!postToBeDeleted) return res.json({ message: "This post cannot be found" })
-
-  //     const deletePost = await PostModel.findByIdAndDelete(postID)
-  //     if (!deletePost) return res.json({ message: "The requested post does not exist and therefore cannot be deleted." })
-
-  //     res.status(204).json({ message: 'Delete successful.' })
-
-  //   } catch (e) {
-  //     res.status(422).json({ message: "This Post ID is in an invalid format." })
-  //   }
-  // }
-
-
 }
+
+
+async function commentOnJob(req, res) {
+  try {
+
+    const jobId = req.params.jobId
+    const comment = req.body
+
+    const job = await JobModel.findById(jobId)
+
+    if (!job) {
+      return res.json({ message: 'No such post has been found' })
+    }
+    // ! Push the new comment to the comments array
+    // comment.user = user
+
+    job.comments.push(comment)
+
+    // ! So we need to save it to the database.
+    const savedJobWithComment = await job.save()
+    // ! Sending back the comment
+    res.json(savedJobWithComment)
+  } catch (e) {
+    console.log(e)
+    res.json({ message: "There was a problem posting this comment." })
+  }
+}
+
+// async function removeComment(req, res) {
+//   try {
+//     const postID = req.params.postID
+//     const commentID = req.params.commentID
+
+//     // const user = req.currentUser
+//     const postToHaveComment = await PostModel.findById(postID)
+
+
+//     // if (!postToBeDeleted.user.equals(user._id)) {
+//     //   return res.json({ message: 'Unauthorized' })
+//     // }
+//     if (!postToBeDeleted) return res.json({ message: "This post cannot be found" })
+
+//     const deletePost = await PostModel.findByIdAndDelete(postID)
+//     if (!deletePost) return res.json({ message: "The requested post does not exist and therefore cannot be deleted." })
+
+//     res.status(204).json({ message: 'Delete successful.' })
+
+//   } catch (e) {
+//     res.status(422).json({ message: "This Post ID is in an invalid format." })
+//   }
+// }
+
+
+
 
 export default {
   commentOnPost,
+  commentOnJob,
 }
