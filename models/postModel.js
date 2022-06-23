@@ -11,12 +11,11 @@ const postSchema = new mongoose.Schema({
   tags: { type: [String], required: false },
   user: { type: mongoose.Schema.ObjectId, ref: "User", required: false },
   userComments: [commentSchema],
-  upvotedBy: { type: [String], required: false },
-  downvotedBy: { type: [String], required: false },
+  upvotedBy: [{ type: mongoose.Schema.ObjectId, ref: "User", required: false }],
+  downvotedBy: [{ type: mongoose.Schema.ObjectId, ref: "User", required: false }],
 }, { timestamps: { createdAt: true, updatedAt: true } }
 )
 
 postSchema.index({ '$**': 'text' }, { autoIndex: false });
-
 
 export default mongoose.model('Posts', postSchema)

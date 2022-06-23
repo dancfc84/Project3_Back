@@ -12,7 +12,7 @@ const router = express.Router()
 router.route("/posts/")
   .get(postController.getPosts)
   .post(postController.createPost)
-// (authenticate, //createPost 
+// (authenticate, //createPost
 
 router.route("/posts/:postID")
   .get(postController.getPostByID)
@@ -54,6 +54,9 @@ router.route("/register")
 router.route("/login")
   .post(userController.login)
 
+router.route("/profile")
+  .get(userController.getUserData)
+  .delete(userController.removeUserData)
 
 // router.route("/posts/:postID/comment")
 //   .post(authenticate, commentController.createComment)
