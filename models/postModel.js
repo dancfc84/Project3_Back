@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 // import validator from 'validator';
-import userModel from './userModel'
+import userModel from '../models/userModel.js'
 
 const commentSchema = new mongoose.Schema({
   content: { type: String, required: true },
