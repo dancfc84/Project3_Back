@@ -37,7 +37,9 @@ async function login(req, res) {
       res.json({
         message: "Login succesful!",
         token,
+        user,
       })
+      
     } else {
       res.status(400).json({ message: "Login failed!" })
     }
