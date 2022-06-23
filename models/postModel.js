@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 // import validator from 'validator';
-import userModel from './userModel'
+
 
 const commentSchema = new mongoose.Schema({
   content: { type: String, required: true },
@@ -12,12 +12,11 @@ const postSchema = new mongoose.Schema({
   tags: { type: [String], required: false },
   user: { type: mongoose.Schema.ObjectId, ref: "User", required: false },
   userComments: [commentSchema],
-  upvotedBy: [userModel],
-  downvotedBy: [userModel],
+  upvotedBy: [{ type: mongoose.Schema.ObjectId, ref: "User", required: false }],
+  downvotedBy: [{ type: mongoose.Schema.ObjectId, ref: "User", required: false }],
 }, { timestamps: { createdAt: true, updatedAt: true } }
 )
 
 postSchema.index({ '$**': 'text' }, { autoIndex: false });
-
 
 export default mongoose.model('Posts', postSchema)
