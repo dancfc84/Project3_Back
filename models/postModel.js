@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 // import validator from 'validator';
+import userModel from './userModel'
 
 const commentSchema = new mongoose.Schema({
   content: { type: String, required: true },
@@ -11,8 +12,8 @@ const postSchema = new mongoose.Schema({
   tags: { type: [String], required: false },
   user: { type: mongoose.Schema.ObjectId, ref: "User", required: false },
   userComments: [commentSchema],
-  upvotedBy: { type: [String], required: false },
-  downvotedBy: { type: [String], required: false },
+  upvotedBy: [userModel],
+  downvotedBy: [userModel],
 }, { timestamps: { createdAt: true, updatedAt: true } }
 )
 
