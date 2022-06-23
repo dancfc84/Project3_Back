@@ -49,7 +49,25 @@ async function login(req, res) {
 }
 
 
+async function getUserData(req, res) {
+  try {
+    const allUser = await User.find()
+    res.json(allUser)
+  } catch (e) {
+    res.status(500).send({ message: "We had problems handling your request on our side 😖. Please try again later." })
+  }
+}
+
+async function removeUserData(req, res) {
+  const deleteUser = req.body
+  const deletedUser = await User.deleteOne(deleteUser)
+  res.status(201).json(deletedUser)
+}
+
+
 export default {
   register,
   login,
+  getUserData,
+  removeUserData,
 }
