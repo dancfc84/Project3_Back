@@ -13,11 +13,11 @@ async function getPosts(req, res) {
 async function createPost(req, res) {
   try {
 
-
     const newPostToAdd = req.body
     // newPostToAdd.user = req.currentUser
     const createPost = await PostModel.create(newPostToAdd)
     res.status(201).json(createPost)
+
   } catch (e) {
     res.status(422).json({ Message: "Error: Post missing or invalid fields." })
   }

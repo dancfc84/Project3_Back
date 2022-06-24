@@ -15,7 +15,7 @@ async function register(req, res, next) {
       })
     }
     const user = await User.create(body)
-    res.status(201).json(user)
+    res.status(201).json({ message: "Login ok"})
   } catch (err) {
     next(err)
   }
@@ -24,7 +24,6 @@ async function register(req, res, next) {
 async function login(req, res) {
   try {
     const user = await User.findOne({ email: req.body.email })
-
     const isValidPw = user.validatePassword(req.body.password)
 
     if (isValidPw) {
@@ -34,12 +33,12 @@ async function login(req, res) {
         { expiresIn: '24h' }
       )
 
-      res.json({
+      res.status(200).json({
         message: "Login succesful!",
         token,
         user,
       })
-      
+
     } else {
       res.status(400).json({ message: "Login failed!" })
     }
@@ -54,7 +53,7 @@ async function getUserData(req, res) {
     const allUser = await User.find()
     res.json(allUser)
   } catch (e) {
-    res.status(500).send({ message: "We had problems handling your request on our side 😖. Please try again later." })
+    res.status(500).json({ message: "We had problems handling your request on our side. Please try again later." })
   }
 }
 
