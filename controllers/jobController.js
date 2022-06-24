@@ -43,6 +43,7 @@ async function editJob (req, res) {
   try {
     const jobId = req.params.jobId
     const job = await Job.findByIdAndUpdate(jobId, { ...req.body })
+    //res?
   } catch (error) {
     console.log(error);
   }
