@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt'
 const userSchema = new mongoose.Schema({
   username: { type: String, required: false },
   email: {
-    type: String, 
+    type: String,
     required: true,
     unique: true,
     validate: (email) => validator.isEmail(email),

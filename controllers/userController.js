@@ -63,10 +63,21 @@ async function removeUserData(req, res) {
   res.status(201).json(deletedUser)
 }
 
+async function updateUserData(req, res) {
+  const userID = req.params.userID
+  const body = req.body
+
+  const updatedUser = await User.findByIdAndUpdate(userID, body, {new: true})
+
+  res.status(201).json(updatedUser)
+
+}
+
 
 export default {
   register,
   login,
   getUserData,
   removeUserData,
+  updateUserData,
 }

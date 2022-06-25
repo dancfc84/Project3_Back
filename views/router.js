@@ -57,6 +57,12 @@ router.route("/login")
 router.route("/profile")
   .get(userController.getUserData)
   .delete(userController.removeUserData)
+  .post(userController.updateUserData	)
+
+router.route("/profile/:userID")
+  .get(userController.getUserData)
+  .delete(userController.removeUserData)
+  .post(userController.updateUserData	)
 
 // router.route("/posts/:postID/comment")
 //   .post(authenticate, commentController.createComment)
