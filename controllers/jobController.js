@@ -7,7 +7,7 @@ async function createJob (req, res) {
     const newJob = req.body
     //newJob.user = req.currentUser
     const createdJob = await Job.create(newJob)
-    console.log(createdJob);
+    res.json(createdJob)
   } catch (error) {
     res.json("Coud not create the job listing")
   }
