@@ -8,13 +8,11 @@ import commentSchema from '../models/postModel.js'
 async function commentOnPost(req, res) {
   try {
     const postID = req.params.postID
-    // ! We also need to get the user/user ID for the user commenting.
     // const user = req.currentUser
     const comment = req.body
 
     const postData = await PostModel.findById(postID)
 
-    // ! Handle it if no post is found
     if (!postData) {
       return res.json({ message: 'No such post has been found' })
     }
@@ -26,9 +24,10 @@ async function commentOnPost(req, res) {
     postData.userComments.push(comment)
 
     // ! So we need to save it to the database.
-    const savedPost = await postData.save()
+    const savedPostWComment = await postData.save()
+    console.log(savedPostWComment.userComments.pop());
     // ! Sending back the comment
-    res.json(savedPost)
+    res.status(200).json(savedPostWComment.userComments.pop())
   } catch (e) {
     console.log(e)
     res.json({ message: "There was a problem posting this comment." })
@@ -55,7 +54,7 @@ async function commentOnJob(req, res) {
     // ! So we need to save it to the database.
     const savedJobWithComment = await job.save()
     // ! Sending back the comment
-    res.json(savedJobWithComment)
+    res.status(200).json(savedJobWithComment)
   } catch (e) {
     console.log(e)
     res.json({ message: "There was a problem posting this comment." })
