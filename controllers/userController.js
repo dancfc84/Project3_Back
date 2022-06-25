@@ -22,6 +22,7 @@ async function register(req, res, next) {
 }
 
 async function login(req, res) {
+  console.log("here");
   try {
     const user = await User.findOne({ email: req.body.email })
     const isValidPw = user.validatePassword(req.body.password)

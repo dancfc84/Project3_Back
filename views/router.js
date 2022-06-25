@@ -6,6 +6,7 @@ import jobController from "../controllers/jobController.js"
 import userController from "../controllers/userController.js"
 // import authenticate from "../middleware/authenticate.js"
 import commentController from "../controllers/commentController.js"
+import secureRoute from "../middleware/secureRoute.js"
 
 const router = express.Router()
 
@@ -42,7 +43,7 @@ router.route("/jobs/edit/:jobId")
   .put(jobController.editJob)
 
 router.route("/jobs/create")
-  .post(jobController.createJob)
+  .post(secureRoute,jobController.createJob)
 
 router.route("/jobs/:jobId/comment")
   .post(commentController.commentOnJob)
