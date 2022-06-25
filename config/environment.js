@@ -12,3 +12,4 @@ export const dbURL = environment === 'test'
 
 //secret for jwt
 export const secret = "growTreesNoChopChopGottaSustain"
+
