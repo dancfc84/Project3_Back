@@ -1,6 +1,7 @@
 import User from '../models/userModel.js'
 import jwt from 'jsonwebtoken'
 import { secret } from '../config/environment.js'
+import axios from 'axios'
 
 
 async function register(req, res, next) {
@@ -14,12 +15,26 @@ async function register(req, res, next) {
         },
       })
     }
-    const user = await User.create(body)
-    res.status(201).json({ message: "Login ok"})
+    // const user = assignUsername()
+    // body.user = user
+    const newUser = await User.create(body)
+    res.status(201).json({ message: "Login ok" })
+
   } catch (err) {
     next(err)
   }
 }
+
+async function assignUsername() {
+  const userNameData = await axios.get(`https://api.fungenerators.com/name/generate?category=pirate&limit=1`)
+
+  console.log(userNameData.data)
+  // const userNametoAdd = userNameData.contents.names[0]
+ // ! This lets you see each pokemon as we fetch it. Priddy cool.
+  //   Pokemon.create(pokemon).then(() => resolve())
+  // })
+}
+
 
 async function login(req, res) {
   try {
@@ -67,7 +82,7 @@ async function updateUserData(req, res) {
   const userID = req.params.userID
   const body = req.body
 
-  const updatedUser = await User.findByIdAndUpdate(userID, body, {new: true})
+  const updatedUser = await User.findByIdAndUpdate(userID, body, { new: true })
 
   res.status(201).json(updatedUser)
 
