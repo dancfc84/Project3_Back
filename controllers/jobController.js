@@ -36,7 +36,7 @@ async function showJob (req, res) {
 async function editJob (req, res) {
 
   console.log(`This is the request body${req.body}`);
-
+  //Just changes a string value in salary to a number 
   if (typeof req.body.jobSalary === 'string') {
     req.body.jobSalary = Number(req.body.jobSalary)
   }
