@@ -5,7 +5,7 @@ import Job from "../models/jobModel.js"
 async function createJob (req, res) {
   try {
     const newJob = req.body
-    //newJob.user = req.currentUser
+    newJob.user = req.currentUser
     const createdJob = await Job.create(newJob)
     res.json(createdJob)
   } catch (error) {
@@ -26,7 +26,7 @@ async function getJobs (req, res) {
 async function showJob (req, res) {
   try {
     const jobId = req.params.jobId
-    const job = await Job.findById(jobId)
+    const job = await Job.findById(jobId).populate('user')
     res.json(job)
   } catch (error) {
     console.log(error);
