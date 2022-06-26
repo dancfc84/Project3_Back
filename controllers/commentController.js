@@ -10,7 +10,6 @@ async function commentOnPost(req, res) {
     const postID = req.params.postID
     // const user = req.currentUser
     const comment = req.body
-
     const postData = await PostModel.findById(postID)
 
     if (!postData) {
@@ -19,21 +18,16 @@ async function commentOnPost(req, res) {
     // ! Push the new comment to the comments array
     // comment.user = user
 
-    // ! Pushing our new comment to this post does
-    // ! NOT update it in the database YET. 
     postData.userComments.push(comment)
 
-    // ! So we need to save it to the database.
     const savedPostWComment = await postData.save()
-    console.log(savedPostWComment.userComments.pop());
-    // ! Sending back the comment
-    res.status(200).json(savedPostWComment.userComments.pop())
+    console.log(savedPostWComment);
+    res.status(200).json(savedPostWComment)
   } catch (e) {
     console.log(e)
     res.json({ message: "There was a problem posting this comment." })
   }
 }
-
 
 async function commentOnJob(req, res) {
   try {

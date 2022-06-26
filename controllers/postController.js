@@ -16,6 +16,7 @@ async function createPost(req, res) {
   try {
     const newPostToAdd = req.body
     console.log(req.currentUser);
+    
     newPostToAdd.user = req.currentUser
     const createPost = await PostModel.create(newPostToAdd)
     res.status(201).json(createPost)
