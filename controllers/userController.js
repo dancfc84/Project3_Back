@@ -6,6 +6,7 @@ import axios from 'axios'
 
 async function register(req, res, next) {
   const body = req.body
+  console.log(body.password);
   try {
     if (body.password !== body.passwordConfirmation) {
       return res.status(422).json({
