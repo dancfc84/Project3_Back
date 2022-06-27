@@ -37,7 +37,7 @@ async function commentOnPost(req, res) {
 
 async function commentOnJob(req, res) {
   try {
-
+    console.log(`Trying to get user ${req.currentUser}`);
     const jobId = req.params.jobId
     const comment = req.body
 
@@ -47,7 +47,7 @@ async function commentOnJob(req, res) {
       return res.json({ message: 'No such post has been found' })
     }
     // ! Push the new comment to the comments array
-    // comment.user = user
+    comment.user = req.currentUser._id
 
     job.comments.push(comment)
 
@@ -59,6 +59,20 @@ async function commentOnJob(req, res) {
     console.log(e)
     res.json({ message: "There was a problem posting this comment." })
   }
+}
+
+async function deleteJobComment(req, res) {
+  console.log(req);
+  const jobId = req.params.jobId
+  const commentId = req.params.commentId
+  const deletedComment = await JobModel.findByIdAndUpdate(
+    jobId,
+    {
+      $pull: { comments: { _id: commentId } },
+    },
+    { new: true }
+  );
+  console.log(deletedComment);
 }
 
 // async function removeComment(req, res) {
@@ -91,4 +105,5 @@ async function commentOnJob(req, res) {
 export default {
   commentOnPost,
   commentOnJob,
+  deleteJobComment,
 }

@@ -44,10 +44,12 @@ router.route("/jobs/edit/:jobId")
 
 router.route("/jobs/create")
   .post(secureRoute,jobController.createJob)
+  
+router.route("/jobs/:jobId/:commentId")
+  .delete(commentController.deleteJobComment)
 
 router.route("/jobs/:jobId/comment")
-  .post(commentController.commentOnJob)
-
+  .post(secureRoute, commentController.commentOnJob)
 
 router.route("/register")
   .post(userController.register)
