@@ -5,7 +5,7 @@ import mongoose from "mongoose"
 const jobCommentSchema = new mongoose.Schema({
   content: { type: String, required: true },
   user: { type: mongoose.Schema.ObjectId, ref: 'User', required: false },
-}, { timestamps: { createdAt: true, updatedAt: true } })
+}, { timestamps: true })
 
 
 const jobSchema = new mongoose.Schema({
