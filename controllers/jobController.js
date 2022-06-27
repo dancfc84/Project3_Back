@@ -5,9 +5,10 @@ import Job from "../models/jobModel.js"
 async function createJob (req, res) {
   try {
     const newJob = req.body
-    //newJob.user = req.currentUser
+    newJob.user = req.currentUser
     const createdJob = await Job.create(newJob)
-    res.json(createdJob)
+    res.status(201).json(createdJob)
+    
   } catch (error) {
     res.json("Coud not create the job listing")
   }
@@ -17,7 +18,8 @@ async function getJobs (req, res) {
   try {
     const allJobs = await Job.find()
     console.log(allJobs);
-    res.json(allJobs)
+    res.status(200).json(allJobs)
+
   } catch (error) {
     res.json("Cannot get jobs")
   }
@@ -26,8 +28,9 @@ async function getJobs (req, res) {
 async function showJob (req, res) {
   try {
     const jobId = req.params.jobId
-    const job = await Job.findById(jobId)
-    res.json(job)
+    const job = await Job.findById(jobId).populate('user')
+    res.status(200).json(job)
+
   } catch (error) {
     console.log(error);
   }
@@ -43,7 +46,8 @@ async function editJob (req, res) {
   try {
     const jobId = req.params.jobId
     const job = await Job.findByIdAndUpdate(jobId, { ...req.body })
-    //res?
+    res.status(200).json(job)
+
   } catch (error) {
     console.log(error);
   }
@@ -54,7 +58,7 @@ async function deleteJob (req, res) {
     console.log("I made it to the job controller");
     const jobId = req.params.jobId
     const deletedJob = await Job.findByIdAndDelete(jobId)
-    res.json(deletedJob)
+    res.status(200).json(deletedJob)
     
   } catch (error) {
     console.log(error);

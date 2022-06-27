@@ -8,7 +8,13 @@ import router from "./views/router.js"
 import { connectToDB, disconnectDB } from "./db/helpers.js"
 import logger from "./middleware/logger.js"
 import mongoSanitize from 'express-mongo-sanitize'
-// import errorHandler from "./middleware/errorHandler"
+
+
+import morgan from "morgan" //for logging purposes
+import fs from 'fs'
+
+
+const dir = process.cwd() + '/logs/access.log'
 
 const app = express()
 
@@ -19,6 +25,11 @@ async function serverStart() {
     app.use(express.json())
 
     app.use(mongoSanitize());
+
+    app.use(morgan('common', { //Using morgan as our logger
+      stream: fs.createWriteStream( dir , { flags: 'a' }),
+    }));
+  
 
     app.use(logger)
 
