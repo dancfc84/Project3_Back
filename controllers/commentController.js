@@ -42,6 +42,7 @@ async function commentOnJob(req, res) {
     }
     // ! Push the new comment to the comments array
     comment.user = req.currentUser._id
+    comment.likes = 0
 
     job.comments.push(comment)
 
@@ -69,10 +70,53 @@ async function deleteJobComment(req, res) {
   console.log(deletedComment);
 }
 
+<<<<<<< HEAD
+=======
+async function likeJobComment(req, res) {
+
+  const jobId = req.params.jobId
+  const commentId = req.params.commentId
+  const options = { new: true }
+  const updateJobComment = await JobModel.findOneAndUpdate({ 'comments._id': commentId }, { $set: { 'comments.$.likes': req.body.likes } }, { runValidators: true, new: true })
+  
+  const likes = updateJobComment.comments.filter((comment) => {
+    return comment._id.toString() === commentId
+  })
+  res.json(likes);
+}
+
+
+// async function removeComment(req, res) {
+//   try {
+//     const postID = req.params.postID
+//     const commentID = req.params.commentID
+
+//     // const user = req.currentUser
+//     const postToHaveComment = await PostModel.findById(postID)
+
+
+//     // if (!postToBeDeleted.user.equals(user._id)) {
+//     //   return res.json({ message: 'Unauthorized' })
+//     // }
+//     if (!postToBeDeleted) return res.json({ message: "This post cannot be found" })
+
+//     const deletePost = await PostModel.findByIdAndDelete(postID)
+//     if (!deletePost) return res.json({ message: "The requested post does not exist and therefore cannot be deleted." })
+
+//     res.status(204).json({ message: 'Delete successful.' })
+
+//   } catch (e) {
+//     res.status(422).json({ message: "This Post ID is in an invalid format." })
+//   }
+// }
+
+
+>>>>>>> 9a5600c8713996b2ab5f93ecd498d310f1dbea7e
 
 
 export default {
   commentOnPost,
   commentOnJob,
   deleteJobComment,
+  likeJobComment,
 }

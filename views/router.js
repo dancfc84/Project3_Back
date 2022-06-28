@@ -42,6 +42,9 @@ router.route("/jobs/create")
 router.route("/jobs/:jobId/:commentId")
   .delete(commentController.deleteJobComment)
 
+router.route("/jobs/:jobId/:commentId/likes")
+  .put(commentController.likeJobComment)
+
 router.route("/jobs/:jobId/comment")
   .post(secureRoute, commentController.commentOnJob)
 
