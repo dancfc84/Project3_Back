@@ -8,15 +8,14 @@ import commentSchema from '../models/postModel.js'
 async function commentOnPost(req, res) {
   try {
     const postID = req.params.postID
-    // const user = req.currentUser
+    const user = req.currentUser
     const comment = req.body
     const postData = await PostModel.findById(postID)
 
     if (!postData) {
       return res.json({ message: 'No such post has been found' })
     }
-    // ! Push the new comment to the comments array
-    // comment.user = user
+    comment.user = user
 
     postData.userComments.push(comment)
 
@@ -70,8 +69,6 @@ async function deleteJobComment(req, res) {
   console.log(deletedComment);
 }
 
-<<<<<<< HEAD
-=======
 async function likeJobComment(req, res) {
 
   const jobId = req.params.jobId
@@ -111,7 +108,6 @@ async function likeJobComment(req, res) {
 // }
 
 
->>>>>>> 9a5600c8713996b2ab5f93ecd498d310f1dbea7e
 
 
 export default {
