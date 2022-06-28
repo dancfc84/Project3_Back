@@ -78,6 +78,20 @@ async function updateUserData(req, res) {
 
 }
 
+async function getSingleUserData(req, res) {
+  try {
+    const userID = req.params.userID
+    const user = await User.findById(userID)
+
+    if (!user) return res.json({ message: "User not found" })
+
+    res.json(user)
+
+  } catch (e) {
+    res.json({ message: 'There was problem trying to get this User' })
+  }
+}
+
 
 export default {
   register,
@@ -85,4 +99,5 @@ export default {
   getUserData,
   removeUserData,
   updateUserData,
+  getSingleUserData,
 }

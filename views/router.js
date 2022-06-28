@@ -60,7 +60,7 @@ router.route("/profile")
   .put(userController.updateUserData)
 
 router.route("/profile/:userID")
-  .get(userController.getUserData)
+  .get(userController.getSingleUserData)
   .delete(userController.removeUserData)
   .put(userController.updateUserData)
 
