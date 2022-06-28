@@ -30,7 +30,7 @@ async function createPost(req, res) {
 async function getPostByID(req, res) {
   try {
     const postID = req.params.postID
-    const post = await PostModel.findById(postID)
+    const post = await PostModel.findById(postID).populate('user') 
     if (!post) return res.json({ Message: "Error: This post in unavailable." })
     res.json(post)
   } catch (e) {
@@ -42,7 +42,7 @@ async function removePost(req, res) {
   try {
     const postID = req.params.postID
     // const user = req.currentUser
-    const postToBeDeleted = await PostModel.findById(postID)
+    const postToBeDeleted = await PostModel.findById(postID).populate('user') 
 
     // if (!postToBeDeleted.user.equals(user._id)) {
     //   return res.json({ message: 'Unauthorized' })
@@ -71,6 +71,17 @@ async function editPost(req, res) {
 }
 //need to improve tags
 
+async function searchPosts(req, res) {
+  try {
+    const postsSearch = await PostModel.findOne({ $text: { $search: req.params.searchQuery } })
+    res.json(postsSearch)
+    if (!postsSearch) return res.json({ message: "Your query returned no results." })
+    res.status(204)
+  } catch (e) {
+    res.json({ message: 'There was problem performing your search request.' })
+  }
+}
+
 // updatePostById,
 // getPostbySearch,
 
@@ -80,5 +91,6 @@ export default {
   getPostByID,
   removePost,
   editPost,
+  searchPosts,
 }
 
