@@ -4,7 +4,6 @@ import express from "express"
 import postController from "../controllers/postController.js"
 import jobController from "../controllers/jobController.js"
 import userController from "../controllers/userController.js"
-// import authenticate from "../middleware/authenticate.js"
 import commentController from "../controllers/commentController.js"
 import secureRoute from "../middleware/secureRoute.js"
 
@@ -12,24 +11,19 @@ const router = express.Router()
 
 router.route("/posts/")
   .get(postController.getPosts)
-  .post(postController.createPost)
+  .post(secureRoute, postController.createPost)
 // (authenticate, //createPost
 
 router.route("/posts/:postID")
   .get(postController.getPostByID)
   .delete(postController.removePost)
   .put(postController.editPost)
-//   .put(authenticate, controller.updateHotelbyID)
 
 router.route("/posts/:postID/comment")
   .post(commentController.commentOnPost)
 
 router.route("/posts/:postID/comment/:commentID")
-  // .put(, commentController.updateComment)
-  // .delete(commentController.removeComment)
 
-// router.route("/posts/search/:searchQuery")
-//   .get(controller.getHotelbySearch)
 
 router.route("/jobs/")
   .get(jobController.getJobs)
@@ -43,8 +37,8 @@ router.route("/jobs/edit/:jobId")
   .put(jobController.editJob)
 
 router.route("/jobs/create")
-  .post(secureRoute,jobController.createJob)
-  
+  .post(secureRoute, jobController.createJob)
+
 router.route("/jobs/:jobId/:commentId")
   .delete(commentController.deleteJobComment)
 
