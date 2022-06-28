@@ -55,6 +55,7 @@ router.route("/login")
   .post(userController.login)
 
 router.route("/profile")
+<<<<<<< HEAD
   .get(secureRoute, userController.getUserData)
   .delete(secureRoute, userController.removeUserData)
   .post(secureRoute, userController.updateUserData)
@@ -63,6 +64,16 @@ router.route("/profile/:userID")
   .get(secureRoute, userController.getUserData)
   .delete(secureRoute, userController.removeUserData)
   .post(secureRoute, userController.updateUserData)
+=======
+  .get(userController.getUserData)
+  .delete(userController.removeUserData)
+  .put(userController.updateUserData)
+
+router.route("/profile/:userID")
+  .get(userController.getSingleUserData)
+  .delete(userController.removeUserData)
+  .put(userController.updateUserData)
+>>>>>>> 15513455fd42dae0061fe9d14a125d180081381d
 
 // router.route("/posts/:postID/comment")
 //   .post(authenticate, commentController.createComment)
