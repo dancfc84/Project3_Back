@@ -48,6 +48,7 @@ async function commentOnJob(req, res) {
     }
     // ! Push the new comment to the comments array
     comment.user = req.currentUser._id
+    comment.likes = 0
 
     job.comments.push(comment)
 
@@ -74,6 +75,20 @@ async function deleteJobComment(req, res) {
   );
   console.log(deletedComment);
 }
+
+async function likeJobComment(req, res) {
+
+  const jobId = req.params.jobId
+  const commentId = req.params.commentId
+  const options = { new: true }
+  const updateJobComment = await JobModel.findOneAndUpdate({ 'comments._id': commentId }, { $set: { 'comments.$.likes': req.body.likes } }, { runValidators: true, new: true })
+  
+  const likes = updateJobComment.comments.filter((comment) => {
+    return comment._id.toString() === commentId
+  })
+  res.json(likes);
+}
+
 
 // async function removeComment(req, res) {
 //   try {
@@ -106,4 +121,5 @@ export default {
   commentOnPost,
   commentOnJob,
   deleteJobComment,
+  likeJobComment,
 }

@@ -5,6 +5,8 @@ import mongoose from "mongoose"
 const jobCommentSchema = new mongoose.Schema({
   content: { type: String, required: true },
   user: { type: mongoose.Schema.ObjectId, ref: 'User', required: false },
+  likes: { type: Number, required: true },
+  userLiked: [],
 }, { timestamps: true })
 
 
