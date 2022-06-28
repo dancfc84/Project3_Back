@@ -19,7 +19,7 @@ const dir = process.cwd() + '/logs/access.log'
 const app = express()
 
 async function serverStart() {
-  
+
   try {
 
     app.use(express.json())
@@ -29,12 +29,12 @@ async function serverStart() {
     app.use(morgan('common', { //Using morgan as our logger
       stream: fs.createWriteStream( dir , { flags: 'a' }),
     }));
-  
+
 
     app.use(logger)
 
     app.use('/api', router)
-    
+
     // app.use(errorHandler)
 
     await connectToDB()
