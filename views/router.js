@@ -10,40 +10,40 @@ import secureRoute from "../middleware/secureRoute.js"
 const router = express.Router()
 
 router.route("/posts/")
-  .get(postController.getPosts)
+  .get(secureRoute, postController.getPosts)
   .post(secureRoute, postController.createPost)
 // (authenticate, //createPost
 
 router.route("/posts/:postID")
-  .get(postController.getPostByID)
-  .delete(postController.removePost)
-  .put(postController.editPost)
+  .get(secureRoute, postController.getPostByID)
+  .delete(secureRoute, postController.removePost)
+  .put(secureRoute, postController.editPost)
 
 router.route("/posts/:postID/comment")
-  .post(commentController.commentOnPost)
+  .post(secureRoute, commentController.commentOnPost)
 
 router.route("/posts/:postID/comment/:commentID")
 
 
 router.route("/jobs/")
-  .get(jobController.getJobs)
-  .post(jobController.createJob)
+  .get(secureRoute, jobController.getJobs)
+  .post(secureRoute, jobController.createJob)
 
 router.route("/jobs/:jobId")
-  .get(jobController.showJob)
-  .delete(jobController.deleteJob)
+  .get(secureRoute, jobController.showJob)
+  .delete(secureRoute, jobController.deleteJob)
 
 router.route("/jobs/edit/:jobId")
-  .put(jobController.editJob)
+  .put(secureRoute, jobController.editJob)
 
 router.route("/jobs/create")
   .post(secureRoute, jobController.createJob)
 
 router.route("/jobs/:jobId/:commentId")
-  .delete(commentController.deleteJobComment)
+  .delete(secureRoute, commentController.deleteJobComment)
 
 router.route("/jobs/:jobId/:commentId/likes")
-  .put(commentController.likeJobComment)
+  .put(secureRoute, commentController.likeJobComment)
 
 router.route("/jobs/:jobId/comment")
   .post(secureRoute, commentController.commentOnJob)
@@ -55,14 +55,14 @@ router.route("/login")
   .post(userController.login)
 
 router.route("/profile")
-  .get(userController.getUserData)
-  .delete(userController.removeUserData)
-  .post(userController.updateUserData)
+  .get(secureRoute, userController.getUserData)
+  .delete(secureRoute, userController.removeUserData)
+  .post(secureRoute, userController.updateUserData)
 
 router.route("/profile/:userID")
-  .get(userController.getUserData)
-  .delete(userController.removeUserData)
-  .post(userController.updateUserData)
+  .get(secureRoute, userController.getUserData)
+  .delete(secureRoute, userController.removeUserData)
+  .post(secureRoute, userController.updateUserData)
 
 // router.route("/posts/:postID/comment")
 //   .post(authenticate, commentController.createComment)
