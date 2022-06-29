@@ -41,8 +41,9 @@ async function commentOnJob(req, res) {
     }
     // ! Push the new comment to the comments array
     comment.user = req.currentUser._id
-    comment.likes = 0
-
+    comment.likes = 1
+    comment.userLiked = comment.user.toString()
+ 
     job.comments.push(comment)
 
     // ! So we need to save it to the database.
@@ -73,13 +74,29 @@ async function likeJobComment(req, res) {
 
   const jobId = req.params.jobId
   const commentId = req.params.commentId
-  const options = { new: true }
-  const updateJobComment = await JobModel.findOneAndUpdate({ 'comments._id': commentId }, { $set: { 'comments.$.likes': req.body.likes } }, { runValidators: true, new: true })
-  
-  const likes = updateJobComment.comments.filter((comment) => {
+  const currUser = req.body.currentUser
+
+  const job = await JobModel.findById(jobId)
+
+  const likedComment = job.comments.filter((comment) => {
     return comment._id.toString() === commentId
   })
-  res.json(likes);
+
+  const isThereMatch = likedComment[0].userLiked.filter((username) => {
+    return currUser === username
+  });
+
+  if (isThereMatch.length === 0) {
+    const updateJobComment = await JobModel.findOneAndUpdate({ 'comments._id': commentId }, { $set: { 'comments.$.likes': req.body.likes } }, { new: true })
+    const addUserToLiked = await JobModel.findOneAndUpdate({ 'comments._id': commentId }, { $push: { 'comments.$.userLiked': currUser } } , { new: true })
+    console.log(addUserToLiked);
+    const likes = updateJobComment.comments.filter((comment) => {
+      return comment._id.toString() === commentId
+    })
+    res.json(likes);
+  } else {
+    return
+  }
 }
 
 
