@@ -6,6 +6,7 @@ async function createJob (req, res) {
   try {
     const newJob = req.body
     newJob.user = req.currentUser
+    newJob.likes = 1
     const createdJob = await Job.create(newJob)
     res.status(201).json(createdJob)
     
@@ -28,7 +29,7 @@ async function getJobs (req, res) {
 async function showJob (req, res) {
   try {
     const jobId = req.params.jobId
-    const job = await Job.findById(jobId).populate('user')
+    const job = await Job.findById(jobId).populate('user').populate('comments.user')
     res.status(200).json(job)
 
   } catch (error) {
@@ -66,10 +67,37 @@ async function deleteJob (req, res) {
 
 }
 
+async function likeJob(req, res) {
+
+  const jobId = req.params.jobId
+  const currUser = req.body.currentUser
+
+  const job = await Job.findById(jobId)
+
+  console.log(job);
+
+  const isThereMatch = job.userLiked.filter((username) => {
+    console.log(`username ${username}`);
+    console.log(`currUser ${currUser}`);
+    return currUser === username
+  });
+
+  if (isThereMatch.length === 0) {
+    const updateJobComment = await Job.findOneAndUpdate({ '_id': jobId }, { 'likes': req.body.likes } , { new: true })
+    console.log(updateJobComment);
+    const addUserToLiked = await Job.findOneAndUpdate({ '_id': jobId }, { $push: { 'userLiked': currUser } } , { new: true })
+    console.log(addUserToLiked);
+    res.json(addUserToLiked);
+  } else {
+    return
+  }
+}
+
 export default {
   createJob,
   getJobs,
   showJob,
   editJob,
   deleteJob,
+  likeJob,
 }

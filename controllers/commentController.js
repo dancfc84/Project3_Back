@@ -31,14 +31,13 @@ async function commentOnPost(req, res) {
 
 async function commentOnJob(req, res) {
   try {
-    console.log(`Trying to get user ${req.currentUser}`);
     const jobId = req.params.jobId
     const comment = req.body
 
-    const job = await JobModel.findById(jobId).populate('userComments.user').populate('user')
+    const job = await JobModel.findById(jobId).populate('user').populate('comments.user')
 
     if (!job) {
-      return res.json({ message: 'No such post has been found' })
+      return res.json({ message: 'job has not been found' })
     }
     // ! Push the new comment to the comments array
     comment.user = req.currentUser._id

@@ -7,10 +7,6 @@ export default function secureRoute(req, res, next) {
 
   const rawToken = req.headers.authorization
 
-  if (!rawToken) {
-    localStorage.getItem("token")
-  }
-
   console.log(rawToken);
 
   if (!rawToken) {
@@ -36,7 +32,6 @@ export default function secureRoute(req, res, next) {
     req.currentUser = user
 
     next()
-
 
   })
 

@@ -21,6 +21,8 @@ const jobSchema = new mongoose.Schema({
   companyImage: { type: String, required: true },
   user: { type: mongoose.Schema.ObjectId, ref: "User" },
   comments: [jobCommentSchema],
+  likes: { type: Number, required: true },
+  userLiked: { type: Array, required: false },
 })
 
 export default mongoose.model('Job', jobSchema)

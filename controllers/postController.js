@@ -80,6 +80,10 @@ async function searchPosts(req, res) {
   }
 }
 
+async function likeJob(req, res) {
+
+}
+
 // updatePostById,
 // getPostbySearch,
 
@@ -90,5 +94,6 @@ export default {
   removePost,
   editPost,
   searchPosts,
+  likeJob,
 }
 
