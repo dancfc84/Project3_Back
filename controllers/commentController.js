@@ -10,7 +10,8 @@ async function commentOnPost(req, res) {
     const postID = req.params.postID
     const user = req.currentUser
     const comment = req.body
-    const postData = await PostModel.findById(postID)
+    const postData = await PostModel.findById(postID).populate('user').populate('userComments.user')
+    console.log("user searching", req.currentUser);
 
     if (!postData) {
       return res.json({ message: 'No such post has been found' })
@@ -20,7 +21,7 @@ async function commentOnPost(req, res) {
     postData.userComments.push(comment)
 
     const savedPostWComment = await postData.save()
-    console.log(savedPostWComment);
+    // console.log(savedPostWComment);
     res.status(200).json(savedPostWComment)
   } catch (e) {
     console.log(e)
@@ -34,7 +35,7 @@ async function commentOnJob(req, res) {
     const jobId = req.params.jobId
     const comment = req.body
 
-    const job = await JobModel.findById(jobId)
+    const job = await JobModel.findById(jobId).populate('userComments.user').populate('user')
 
     if (!job) {
       return res.json({ message: 'No such post has been found' })
