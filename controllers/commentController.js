@@ -68,6 +68,7 @@ async function deleteJobComment(req, res) {
     { new: true }
   );
   console.log(deletedComment);
+  res.status(200).json(deletedComment)
 }
 
 async function likeJobComment(req, res) {
