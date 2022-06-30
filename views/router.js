@@ -26,7 +26,7 @@ router.route("/posts/:postID/comment/:commentID")
 
 
 router.route("/jobs/")
-  .get( secureRoute, jobController.getJobs)
+  .get(secureRoute, jobController.getJobs)
   .post(secureRoute, jobController.createJob)
 
 router.route("/jobs/:jobId")

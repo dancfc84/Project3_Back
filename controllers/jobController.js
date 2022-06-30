@@ -1,13 +1,13 @@
-
+ 
 
 import Job from "../models/jobModel.js"
 
 async function createJob (req, res) {
   try {
-    const newJob = req.body
+    const newJob = req.body  
     newJob.user = req.currentUser
     newJob.likes = 1
-    const createdJob = await Job.create(newJob)
+    const createdJob = await Job.create(newJob) 
     res.status(201).json(createdJob)
     
   } catch (error) {

@@ -9,7 +9,7 @@ export default function secureRoute(req, res, next) {
 
   console.log(rawToken);
 
-  if (!rawToken) {
+  if (!rawToken || !rawToken.startsWith('Bearer')) {
     return res.status(401).json( { message: "Unauthorised 1" })
   }
 
