@@ -10,31 +10,34 @@ import secureRoute from "../middleware/secureRoute.js"
 const router = express.Router()
 
 router.route("/posts/")
-  .get(postController.getPosts)
+  .get(secureRoute, postController.getPosts)
   .post(secureRoute, postController.createPost)
 // (authenticate, //createPost
 
 router.route("/posts/:postID")
-  .get(postController.getPostByID)
-  .delete(postController.removePost)
-  .put(postController.editPost)
+  .get(secureRoute, postController.getPostByID)
+  .delete(secureRoute, postController.removePost)
+  .put(secureRoute, postController.editPost)
 
 router.route("/posts/:postID/comment")
-  .post(commentController.commentOnPost)
+  .post(secureRoute, commentController.commentOnPost)
 
 router.route("/posts/:postID/comment/:commentID")
 
 
 router.route("/jobs/")
-  .get(jobController.getJobs)
-  .post(jobController.createJob)
+  .get(secureRoute, jobController.getJobs)
+  .post(secureRoute, jobController.createJob)
 
 router.route("/jobs/:jobId")
-  .get(jobController.showJob)
-  .delete(jobController.deleteJob)
+  .get( jobController.showJob)
+  .delete(secureRoute, jobController.deleteJob)
+
+router.route("/jobs/:jobId/likes")
+  .put(jobController.likeJob)
 
 router.route("/jobs/edit/:jobId")
-  .put(jobController.editJob)
+  .put(secureRoute, jobController.editJob)
 
 router.route("/jobs/create")
   .post(secureRoute, jobController.createJob)
@@ -57,12 +60,21 @@ router.route("/login")
 router.route("/profile")
   .get(secureRoute, userController.getUserData)
   .delete(secureRoute, userController.removeUserData)
+<<<<<<< HEAD
   .put(secureRoute, userController.updateUserData)
 
 router.route("/profile/:userID")
   .get(secureRoute, userController.getSingleUserData)
   .delete(secureRoute, userController.removeUserData)
   .put(secureRoute, userController.updateUserData)
+=======
+  .post(secureRoute, userController.updateUserData)
+
+router.route("/profile/:userID")
+  .get(secureRoute, userController.getUserData)
+  .delete(secureRoute, userController.removeUserData)
+  .post(secureRoute, userController.updateUserData)
+>>>>>>> 3f34458608ba068fa8034798ded29ad1025b8896
 
 // router.route("/posts/:postID/comment")
 //   .post(authenticate, commentController.createComment)

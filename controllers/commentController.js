@@ -10,7 +10,8 @@ async function commentOnPost(req, res) {
     const postID = req.params.postID
     const user = req.currentUser
     const comment = req.body
-    const postData = await PostModel.findById(postID)
+    const postData = await PostModel.findById(postID).populate('user').populate('userComments.user')
+    console.log("user searching", req.currentUser);
 
     if (!postData) {
       return res.json({ message: 'No such post has been found' })
@@ -20,7 +21,7 @@ async function commentOnPost(req, res) {
     postData.userComments.push(comment)
 
     const savedPostWComment = await postData.save()
-    console.log(savedPostWComment);
+    // console.log(savedPostWComment);
     res.status(200).json(savedPostWComment)
   } catch (e) {
     console.log(e)
@@ -30,19 +31,19 @@ async function commentOnPost(req, res) {
 
 async function commentOnJob(req, res) {
   try {
-    console.log(`Trying to get user ${req.currentUser}`);
     const jobId = req.params.jobId
     const comment = req.body
 
-    const job = await JobModel.findById(jobId)
+    const job = await JobModel.findById(jobId).populate('user').populate('comments.user')
 
     if (!job) {
-      return res.json({ message: 'No such post has been found' })
+      return res.json({ message: 'job has not been found' })
     }
     // ! Push the new comment to the comments array
     comment.user = req.currentUser._id
-    comment.likes = 0
-
+    comment.likes = 1
+    comment.userLiked = comment.user.toString()
+ 
     job.comments.push(comment)
 
     // ! So we need to save it to the database.
@@ -67,19 +68,36 @@ async function deleteJobComment(req, res) {
     { new: true }
   );
   console.log(deletedComment);
+  res.status(200).json(deletedComment)
 }
 
 async function likeJobComment(req, res) {
 
   const jobId = req.params.jobId
   const commentId = req.params.commentId
-  const options = { new: true }
-  const updateJobComment = await JobModel.findOneAndUpdate({ 'comments._id': commentId }, { $set: { 'comments.$.likes': req.body.likes } }, { runValidators: true, new: true })
-  
-  const likes = updateJobComment.comments.filter((comment) => {
+  const currUser = req.body.currentUser
+
+  const job = await JobModel.findById(jobId)
+
+  const likedComment = job.comments.filter((comment) => {
     return comment._id.toString() === commentId
   })
-  res.json(likes);
+
+  const isThereMatch = likedComment[0].userLiked.filter((username) => {
+    return currUser === username
+  });
+
+  if (isThereMatch.length === 0) {
+    const updateJobComment = await JobModel.findOneAndUpdate({ 'comments._id': commentId }, { $set: { 'comments.$.likes': req.body.likes } }, { new: true })
+    const addUserToLiked = await JobModel.findOneAndUpdate({ 'comments._id': commentId }, { $push: { 'comments.$.userLiked': currUser } } , { new: true })
+    console.log(addUserToLiked);
+    const likes = updateJobComment.comments.filter((comment) => {
+      return comment._id.toString() === commentId
+    })
+    res.json(likes);
+  } else {
+    return
+  }
 }
 
 

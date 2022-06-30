@@ -2,7 +2,7 @@ import PostModel from "../models/postModel.js"
 
 async function getPosts(req, res) {
   try {
-    const allPosts = await PostModel.find().sort({ createdAt: -1 }).populate('user') //sorts all posts before sending them back ... newest on top
+    const allPosts = await PostModel.find().sort({ createdAt: -1 }).populate('user').populate('userComments.user') //sorts all posts before sending them back ... newest on top
     console.log(allPosts);
     res.status(200).json(allPosts)
     // console.log(req);
@@ -28,7 +28,7 @@ async function createPost(req, res) {
 async function getPostByID(req, res) {
   try {
     const postID = req.params.postID
-    const post = await PostModel.findById(postID).populate('user') 
+    const post = await PostModel.findById(postID).populate('user').populate('userComments.user')
     if (!post) return res.json({ Message: "Error: This post in unavailable." })
     res.json(post)
   } catch (e) {
@@ -40,7 +40,7 @@ async function removePost(req, res) {
   try {
     const postID = req.params.postID
     // const user = req.currentUser
-    const postToBeDeleted = await PostModel.findById(postID).populate('user') 
+    const postToBeDeleted = await PostModel.findById(postID).populate('user')
 
     // if (!postToBeDeleted.user.equals(user._id)) {
     //   return res.json({ message: 'Unauthorized' })
@@ -80,6 +80,10 @@ async function searchPosts(req, res) {
   }
 }
 
+async function likeJob(req, res) {
+
+}
+
 // updatePostById,
 // getPostbySearch,
 
@@ -90,5 +94,6 @@ export default {
   removePost,
   editPost,
   searchPosts,
+  likeJob,
 }
 
