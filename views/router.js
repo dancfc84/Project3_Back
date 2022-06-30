@@ -22,7 +22,8 @@ router.route("/posts/:postID")
 router.route("/posts/:postID/comment")
   .post(secureRoute, commentController.commentOnPost)
 
-router.route("/posts/:postID/comment/:commentID")
+router.route("/posts/:postID/:commentID")
+  .delete(secureRoute, commentController.removeComment)
 
 
 router.route("/jobs/")
@@ -30,7 +31,7 @@ router.route("/jobs/")
   .post(secureRoute, jobController.createJob)
 
 router.route("/jobs/:jobId")
-  .get( jobController.showJob)
+  .get(jobController.showJob)
   .delete(secureRoute, jobController.deleteJob)
 
 router.route("/jobs/:jobId/likes")

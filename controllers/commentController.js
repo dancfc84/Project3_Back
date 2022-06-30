@@ -43,7 +43,7 @@ async function commentOnJob(req, res) {
     comment.user = req.currentUser._id
     comment.likes = 1
     comment.userLiked = comment.user.toString()
- 
+
     job.comments.push(comment)
 
     // ! So we need to save it to the database.
@@ -89,7 +89,7 @@ async function likeJobComment(req, res) {
 
   if (isThereMatch.length === 0) {
     const updateJobComment = await JobModel.findOneAndUpdate({ 'comments._id': commentId }, { $set: { 'comments.$.likes': req.body.likes } }, { new: true })
-    const addUserToLiked = await JobModel.findOneAndUpdate({ 'comments._id': commentId }, { $push: { 'comments.$.userLiked': currUser } } , { new: true })
+    const addUserToLiked = await JobModel.findOneAndUpdate({ 'comments._id': commentId }, { $push: { 'comments.$.userLiked': currUser } }, { new: true })
     console.log(addUserToLiked);
     const likes = updateJobComment.comments.filter((comment) => {
       return comment._id.toString() === commentId
@@ -101,29 +101,23 @@ async function likeJobComment(req, res) {
 }
 
 
-// async function removeComment(req, res) {
-//   try {
-//     const postID = req.params.postID
-//     const commentID = req.params.commentID
-
-//     // const user = req.currentUser
-//     const postToHaveComment = await PostModel.findById(postID)
-
-
-//     // if (!postToBeDeleted.user.equals(user._id)) {
-//     //   return res.json({ message: 'Unauthorized' })
-//     // }
-//     if (!postToBeDeleted) return res.json({ message: "This post cannot be found" })
-
-//     const deletePost = await PostModel.findByIdAndDelete(postID)
-//     if (!deletePost) return res.json({ message: "The requested post does not exist and therefore cannot be deleted." })
-
-//     res.status(204).json({ message: 'Delete successful.' })
-
-//   } catch (e) {
-//     res.status(422).json({ message: "This Post ID is in an invalid format." })
-//   }
-// }
+async function removeComment(req, res) {
+  try {
+    const postID = req.params.postID
+    const commentID = req.params.commentID
+    const deletePostComment = await PostModel.findByIdAndUpdate(
+      postID,
+      {
+        $pull: { userComments: { _id: commentID } },
+      },
+      { new: true }
+    );
+    if (!deletePostComment) return res.json({ message: "The requested comment does not exist and therefore cannot be deleted." })
+    res.status(204).json({ message: 'Delete successful.' })
+  } catch (e) {
+    res.status(422).json({ message: "This Post ID is in an invalid format." })
+  }
+}
 
 
 
@@ -133,4 +127,5 @@ export default {
   commentOnJob,
   deleteJobComment,
   likeJobComment,
+  removeComment,
 }
