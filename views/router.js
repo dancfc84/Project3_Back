@@ -60,21 +60,12 @@ router.route("/login")
 router.route("/profile")
   .get(secureRoute, userController.getUserData)
   .delete(secureRoute, userController.removeUserData)
-<<<<<<< HEAD
-  .put(secureRoute, userController.updateUserData)
-
-router.route("/profile/:userID")
-  .get(secureRoute, userController.getSingleUserData)
-  .delete(secureRoute, userController.removeUserData)
-  .put(secureRoute, userController.updateUserData)
-=======
   .post(secureRoute, userController.updateUserData)
 
 router.route("/profile/:userID")
   .get(secureRoute, userController.getUserData)
   .delete(secureRoute, userController.removeUserData)
   .post(secureRoute, userController.updateUserData)
->>>>>>> 3f34458608ba068fa8034798ded29ad1025b8896
 
 // router.route("/posts/:postID/comment")
 //   .post(authenticate, commentController.createComment)
