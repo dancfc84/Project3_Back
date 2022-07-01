@@ -2,7 +2,7 @@
 export default [
   {
     username: 'Dumblevore',
-    email: "dumblevore@cern.ch",
+    email: "dim@hackertrees.com",
     password: "44BatsBats$$",
     userType: "admin",
     profilePicture: "https://avatars.githubusercontent.com/u/100156884?v=4",
@@ -17,16 +17,16 @@ export default [
   },
   {
     username: 'Dan',
-    email: "dan@hackertrees.co",
+    email: "dan@hackertrees.com",
     password: "44HatsHats$$",
     userType: "admin",
-    profilePicture: "",
-    bioUser: "but a humble jr dev",
+    profilePicture: "https://avatars.githubusercontent.com/u/100156884?v=4",
+    bioUser: "but a humble dev",
     firstName: "Dan",
     lastName: "Whittcok",
     position: 'junior Dev at NewCo',
     postsPosted: [],
-    companyRepresented: "NewCo",
+    companyRepresented: "asdsa",
     jobsPosted: [3],
     yearsExp: 15,
   }
