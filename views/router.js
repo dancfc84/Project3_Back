@@ -19,8 +19,12 @@ router.route("/posts/:postID")
   .delete(secureRoute, postController.removePost)
   .put(secureRoute, postController.editPost)
 
+
 router.route("/posts/:postID/comment")
   .post(secureRoute, commentController.commentOnPost)
+
+router.route("/posts/:postID/vote")
+  .post(secureRoute, postController.likePost)
 
 router.route("/posts/:postID/:commentID")
   .delete(secureRoute, commentController.removeComment)

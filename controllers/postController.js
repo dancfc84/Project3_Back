@@ -1,4 +1,7 @@
 import PostModel from "../models/postModel.js"
+import UserModel from '../models/userModel.js'
+import commentSchema from '../models/postModel.js'
+
 
 async function getPosts(req, res) {
   try {
@@ -12,10 +15,9 @@ async function getPosts(req, res) {
 }
 
 
-
 async function createPost(req, res) {
   try {
-    const newPostToAdd = req.body    
+    const newPostToAdd = req.body
     newPostToAdd.user = req.currentUser
     const createPost = await PostModel.create(newPostToAdd)
     res.status(201).json(createPost)
@@ -39,12 +41,12 @@ async function getPostByID(req, res) {
 async function removePost(req, res) {
   try {
     const postID = req.params.postID
-    // const user = req.currentUser
+    const user = req.currentUser
     const postToBeDeleted = await PostModel.findById(postID).populate('user')
 
-    // if (!postToBeDeleted.user.equals(user._id)) {
-    //   return res.json({ message: 'Unauthorized' })
-    // }
+    if (!postToBeDeleted.user.equals(user._id)) {
+      return res.json({ message: 'Unauthorized' })
+    }
     if (!postToBeDeleted) return res.json({ message: "This post cannot be found" })
 
     const deletePost = await PostModel.findByIdAndDelete(postID)
@@ -80,8 +82,27 @@ async function searchPosts(req, res) {
   }
 }
 
-async function likeJob(req, res) {
+async function likePost(req, res) {
+  try {
+    const postID = req.params.postID
+    const user = req.currentUser
 
+    const post = await PostModel.findById(postID)
+    if (!post) return res.json({ message: "This post cannot be found" })
+
+
+    if (post.upvotedBy.includes(user._id) === false) {
+      post.upvotedBy.push(user)
+      const savedPostWithNewLike = await post.save()
+      res.status(202).json(savedPostWithNewLike.upvotedBy)
+
+    } else {
+      return res.status(403).json({ message: "already liked" })
+    }
+
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 // updatePostById,
@@ -94,6 +115,6 @@ export default {
   removePost,
   editPost,
   searchPosts,
-  likeJob,
+  likePost,
 }
 

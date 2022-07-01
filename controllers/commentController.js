@@ -1,8 +1,6 @@
 // ! Controller just for comments.
 import PostModel from '../models/postModel.js'
 import JobModel from '../models/jobModel.js'
-import UserModel from '../models/userModel.js'
-import commentSchema from '../models/postModel.js'
 
 
 async function commentOnPost(req, res) {
@@ -19,8 +17,8 @@ async function commentOnPost(req, res) {
     comment.user = user
 
     postData.userComments.push(comment)
-
     const savedPostWComment = await postData.save()
+    
     // console.log(savedPostWComment);
     res.status(200).json(savedPostWComment)
   } catch (e) {
