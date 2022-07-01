@@ -8,6 +8,7 @@ import router from "./views/router.js"
 import { connectToDB, disconnectDB } from "./db/helpers.js"
 import logger from "./middleware/logger.js"
 import mongoSanitize from 'express-mongo-sanitize'
+import errorHandler from "./middleware/errorHandler.js"
 
 
 import morgan from "morgan" //for logging purposes
@@ -35,7 +36,7 @@ async function serverStart() {
 
     app.use('/api', router)
 
-    // app.use(errorHandler)
+    app.use(errorHandler)
 
     await connectToDB()
 

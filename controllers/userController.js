@@ -25,8 +25,7 @@ async function register(req, res, next) {
 }
 
 
-async function login(req, res) {
-  console.log("here");
+async function login(req, res, next) {
   try {
     const user = await User.findOne({ email: req.body.email })
     const isValidPw = user.validatePassword(req.body.password)
@@ -43,12 +42,10 @@ async function login(req, res) {
         token,
         user,
       })
-
-    } else {
-      res.status(400).json({ message: "Login failed!" })
-    }
+    } 
   } catch (err) {
-    res.status(400).json({ message: "Login failed!" })
+    console.log(`Did this work ${err}`);
+    next(err)
   }
 }
 
