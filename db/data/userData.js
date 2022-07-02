@@ -41,6 +41,32 @@ export default [
     yearsExp: 10,
 
   },
+  
+  {
+    username: 'dwhittock',
+    email: "danwhittock2013@gmail.com",
+    password: "Hello",
+    userType: "admin",
+
+    profilePicture: "https://avatars.githubusercontent.com/u/100156884?v=4",
+
+    bioUser: "Aspiring to be a software engineer",
+
+    firstName: "Dan",
+
+    lastName: "Whittock",
+
+    position: 'Junior at random Company',
+
+    postsPosted: [],
+
+    companyRepresented: "Hotcompany",
+
+    jobsPosted: [],
+
+    yearsExp: 10,
+  },
+
   {
     username: 'jamesthecooker',
     email: "james@random.com",
