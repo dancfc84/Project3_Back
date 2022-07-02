@@ -2,7 +2,7 @@
 
 import Job from "../models/jobModel.js"
 
-async function createJob (req, res) {
+async function createJob (req, res, next) {
   try {
     const newJob = req.body  
     newJob.user = req.currentUser
@@ -11,7 +11,7 @@ async function createJob (req, res) {
     res.status(201).json(createdJob)
     
   } catch (error) {
-    res.json("Coud not create the job listing")
+    next(error)
   }
 }
 
@@ -37,7 +37,7 @@ async function showJob (req, res) {
   }
 }
 
-async function editJob (req, res) {
+async function editJob (req, res, next) {
 
   console.log(`This is the request body${req.body}`);
   //Just changes a string value in salary to a number 
@@ -46,11 +46,12 @@ async function editJob (req, res) {
   }
   try {
     const jobId = req.params.jobId
-    const job = await Job.findByIdAndUpdate(jobId, { ...req.body })
+    const job = await Job.findByIdAndUpdate(jobId, { ...req.body }, { runValidators: true })
     res.status(200).json(job)
 
   } catch (error) {
     console.log(error);
+    next(error)
   }
 }
 
