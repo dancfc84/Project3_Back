@@ -19,7 +19,7 @@ export default [
   {
     username: 'codysaan',
     email: "codysaan@gmx.com",
-    password: "Jakehello%8",
+    password: "22CatsBats!!",
     userType: "admin",
 
     profilePicture: "https://ca.slack-edge.com/T0351JZQ0-U02SXV937DG-a8cbe049b288-512",
@@ -41,11 +41,11 @@ export default [
     yearsExp: 10,
 
   },
-  
+
   {
     username: 'dwhittock',
     email: "danwhittock2013@gmail.com",
-    password: "Hello",
+    password: "22CatsBats!!",
     userType: "admin",
 
     profilePicture: "https://avatars.githubusercontent.com/u/100156884?v=4",
@@ -65,31 +65,6 @@ export default [
     jobsPosted: [],
 
     yearsExp: 10,
-  },
-
-  {
-    username: 'jamesthecooker',
-    email: "james@random.com",
-    password: "Jameshello%8",
-
-    profilePicture: "https://minimaltoolkit.com/images/randomdata/male/2.jpg",
-
-    bioUser: "Blablabla",
-
-    firstName: "James",
-
-    lastName: "Blake",
-
-    position: 'Hacker',
-
-    postsPosted: [],
-
-    companyRepresented: "Hackcompany",
-
-    jobsPosted: [],
-
-    yearsExp: 8,
-
   },
   {
     username: 'Daniel',
