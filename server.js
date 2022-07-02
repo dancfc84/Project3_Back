@@ -5,50 +5,51 @@
 
 import express from "express";
 import router from "./views/router.js"
-import { connectToDB, disconnectDB } from "./db/helpers.js"
+import cors from 'cors' //* <-- This is new
+import { port } from './config/environment.js'
+import { connectToDB } from "./db/helpers.js"
 import logger from "./middleware/logger.js"
 import mongoSanitize from 'express-mongo-sanitize'
 import errorHandler from "./middleware/errorHandler.js"
 
-
 import morgan from "morgan" //for logging purposes
 import fs from 'fs'
-
 
 const dir = process.cwd() + '/logs/access.log'
 
 const app = express()
 
-async function serverStart() {
 
+app.use(express.json())
+
+app.use(cors()) //* <-- This is new
+
+app.use(mongoSanitize());
+
+app.use(morgan('common', { //Using morgan as our logger
+  stream: fs.createWriteStream(dir, { flags: 'a' }),
+}));
+
+app.use(logger)
+
+app.use('/api', router)
+
+app.use(errorHandler)
+
+async function startApp() {
   try {
-
-    app.use(express.json())
-
-    app.use(mongoSanitize());
-
-    app.use(morgan('common', { //Using morgan as our logger
-      stream: fs.createWriteStream( dir , { flags: 'a' }),
-    }));
-
-
-    app.use(logger)
-
-    app.use('/api', router)
-
-    app.use(errorHandler)
-
     await connectToDB()
+    console.log('Database has connected!')
 
-    app.listen(4000, () => console.log('Express up and running?'))
+    app.listen(port, () => console.log('Express is now running'))
 
   } catch (e) {
-
-    await disconnectDB()
-
+    console.log('Something went wrong starting app..')
+    console.log(e)
   }
+  // await disconnectDB()
 }
 
-serverStart()
+startApp()
 
 export default app

@@ -10,7 +10,7 @@ async function seed() {
   // ? Then you give it the name of the db to connect to (you make this up.)
   await connectToDB()
   //await mongoose.connection.db.dropDatabase()
-  const newUser = await User.findOne({ username: "codysaan" })
+  const newUser = await User.findOne({ username: "Daniel" })
   JobData.forEach( post => {
     post.user = newUser
   })
