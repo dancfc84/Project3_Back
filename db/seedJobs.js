@@ -1,7 +1,7 @@
 
 import mongoose from 'mongoose'
 import JobModel from '../models/jobModel.js'
-import Users from '../models/userModel.js'
+import User from '../models/userModel.js'
 import JobData from './data/jobData.js'
 import { disconnectDB, connectToDB } from './helpers.js'
 
@@ -10,7 +10,7 @@ async function seed() {
   // ? Then you give it the name of the db to connect to (you make this up.)
   await connectToDB()
   // await mongoose.connection.db.dropDatabase()
-  const newUser = await Users.findOne({ username: "" })
+  const newUser = await User.findOne({ username: "" })
   JobData.forEach( post => {
     post.user = newUser
   })
