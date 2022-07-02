@@ -2,13 +2,9 @@
 import dotenv from 'dotenv'
 dotenv.config()
 export const dbURL =
-  process.env.DB_URL || 'mongodb://localhost/hackertrees'
+  process.env.DB_URL || 'mongodb://127.0.0.1:27017/hackertrees'
 export const port = process.env.PORT || 4000
 export const secret = process.env.SECRET || 'growTreesNoChopChopGottaSustain'
-
-
-
-
 
 
 
