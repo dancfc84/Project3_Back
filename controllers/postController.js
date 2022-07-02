@@ -1,6 +1,6 @@
 import PostModel from "../models/postModel.js"
-import UserModel from '../models/userModel.js'
-import commentSchema from '../models/postModel.js'
+// import UserModel from '../models/userModel.js'
+// import commentSchema from '../models/postModel.js'
 
 
 async function getPosts(req, res) {
