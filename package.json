@@ -4,7 +4,8 @@
   "description": "A style guide application for SEI",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "npx nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -31,8 +32,5 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^8.16.0",
     "eslint-plugin-import": "^2.26.0"
-  },
-  "dev": {
-    "start": "npx nodemon server.js"
   }
 }
