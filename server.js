@@ -15,7 +15,7 @@ import errorHandler from "./middleware/errorHandler.js"
 import morgan from "morgan" //for logging purposes
 import fs from 'fs'
 
-const dir = process.cwd() + '/logs/access.log'
+// const dir = process.cwd() + '/logs/access.log'
 
 const app = express()
 
@@ -26,9 +26,9 @@ app.use(cors()) //* <-- This is new
 
 app.use(mongoSanitize());
 
-app.use(morgan('common', { //Using morgan as our logger
-  stream: fs.createWriteStream(dir, { flags: 'a' }),
-}));
+// app.use(morgan('common', { //Using morgan as our logger
+//   stream: fs.createWriteStream(dir, { flags: 'a' }),
+// }));
 
 app.use(logger)
 
