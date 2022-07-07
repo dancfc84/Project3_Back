@@ -2,6 +2,9 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+REACT_APP_PROD_URL=https://it-links.herokuapp.com/api
+
+
 export const dbURL =
   process.env.DB_URL || 'mongodb://127.0.0.1:27017/hackertrees'
 export const port = process.env.PORT || 4000
