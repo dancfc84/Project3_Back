@@ -6,8 +6,22 @@ import axios from 'axios'
 
 async function register(req, res, next) {
   const body = req.body
-  console.log(body.password);
+  console.log(body);
+
+  const user = await User.findOne({ email: req.body.email })
+
   try {
+
+    if (user) {
+      return res.status(409).json({
+        message: "User Already Exists",
+        errors: {
+          email: "User Already Exists",
+        },
+      })
+    }
+
+
     if (body.password !== body.passwordConfirmation) {
       return res.status(422).json({
         message: "Passwords do not match",
